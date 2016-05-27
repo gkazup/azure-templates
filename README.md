@@ -1,1 +1,1 @@
-# azure-templtes
+# azure-templates
