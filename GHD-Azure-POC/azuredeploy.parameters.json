@@ -41,26 +41,8 @@
         "dnsPrefix": {
             "value" : "GEN-UNIQUE"
         },
-        "storageAccountNamePrefix": {
-            "value": "GEN-UNIQUE"
-        },
         "storageAccountType": {
             "value" : "Premium_LRS"
-        },
-        "adVMSize" : {
-            "value" : "Standard_DS1"
-        },
-        "sqlVMSize" : {
-            "value" : "Standard_DS3"
-        },
-        "witnessVMSize" : {
-            "value" : "Standard_DS1"
-        },
-        "spVMSize" : {
-            "value" : "Standard_DS3"
-        },
-        "domainName":{
-            "value":"contoso.local"
         }
     }
 }
