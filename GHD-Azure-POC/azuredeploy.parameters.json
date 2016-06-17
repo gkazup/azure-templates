@@ -2,14 +2,14 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "domainName": {
+             "value": "ghdnet.local"
+        },
         "adminUsername": {
             "value": "admin123"
         },
         "adminPassword": {
             "value" : "GEN-PASSWORD"
-        },
-        "sharepointFarmName" : {
-            "value":"SharepointFarm"
         },
         "sqlServerServiceAccountUserName":{
             "value": "sqlservice"
@@ -24,7 +24,7 @@
             "value" : "GEN-PASSWORD"
         },
         "sharePointFarmAccountPassword":{
-            "value": "Admin123sp!farm"
+            "value": "GEN-PASSWORD"
         },
         "sharePointFarmPassphrasePassword":{
             "value": "GEN-PASSWORD"
