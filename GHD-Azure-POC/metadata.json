@@ -1,0 +1,7 @@
+{
+  "itemDisplayName": "Create a POC environment for GHD",
+  "description": "This template creates 11 new Azure VMs, each group load balancer and a VNet. It configures a primary and backup AD Domain Controller for a new Forest and Domain, two file servers using DFSR, two SQL Servers and witness in AlwaysOn configuration and 4 Sharepoint VMs with a Sharepoint farm and site",
+  "summary": "This template creates POC environment for GHD",
+  "githubUsername": "gkazup",
+  "dateUpdated": "2016-06-16"
+}

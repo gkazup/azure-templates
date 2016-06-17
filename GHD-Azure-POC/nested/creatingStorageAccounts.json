@@ -1,0 +1,78 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "storageAccountNamePrefix" : {
+      "type" : "string"
+    },
+    "location" : {
+      "type" : "string"
+    },
+    "storageAccountType" : {
+      "type" : "string"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[concat(parameters('storageAccountNamePrefix'), 'fs', substring(uniquestring(resourceGroup().id)), 0, 4)]",
+      "apiVersion": "2015-06-15",
+      "location": "[parameters('location')]",
+      "description": "File Server storage account",
+      "properties": {
+        "accountType": "[parameters('storageAccountType')]"
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[concat(parameters('storageAccountNamePrefix'), 'ad', substring(uniquestring(resourceGroup().id)), 1, 4)]",
+      "apiVersion": "2015-06-15",
+      "location": "[parameters('location')]",
+      "description": "Domain Controller storage account",
+      "properties": {
+        "accountType": "[parameters('storageAccountType')]"
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[concat(parameters('storageAccountNamePrefix'), 'sql', substring(uniquestring(resourceGroup().id)), 2, 4)]",
+      "apiVersion": "2015-06-15",
+      "location": "[parameters('location')]",
+      "description": "SQL storage account",
+      "properties": {
+        "accountType": "[parameters('storageAccountType')]"
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[concat(parameters('storageAccountNamePrefix'), 'web', substring(uniquestring(resourceGroup().id)), 3, 4)]",
+      "apiVersion": "2015-06-15",
+      "location": "[parameters('location')]",
+      "description": "Sharepoint Web Server storage account",
+      "properties": {
+        "accountType": "[parameters('storageAccountType')]"
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[concat(parameters('storageAccountNamePrefix'), 'app', substring(uniquestring(resourceGroup().id)), 4, 4)]",
+      "apiVersion": "2015-06-15",
+      "location": "[parameters('location')]",
+      "description": "Sharepoint App Server storage account",
+      "properties": {
+        "accountType": "[parameters('storageAccountType')]"
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[concat(parameters('storageAccountNamePrefix'), 'backup', substring(uniquestring(resourceGroup().id)), 5, 4)]",
+      "apiVersion": "2015-06-15",
+      "location": "[parameters('location')]",
+      "description": "Backup and diagnostics storage account",
+      "properties": {
+        "accountType": "Standard_LRS"
+      }
+    }
+  ],
+  "outputs": {}
+}
