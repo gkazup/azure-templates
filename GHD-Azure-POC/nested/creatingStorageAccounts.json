@@ -14,7 +14,7 @@
   },
   "variables": {
     "apiVersion": "2015-01-01"
-  }
+  },
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts",
