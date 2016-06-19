@@ -126,7 +126,7 @@
     }
   },
   "variables": {
-    "apiVersion": "2015-01-01",
+    "apiVersion": "2016-01-01",
     "storageAccountNamePrefix": "ghdnet",
     "sharepointFarmName": "spfarm",
     "spSiteTemplateName": "STS#0",
@@ -341,7 +341,7 @@
     "assetLocation": "[concat(parameters('baseUrl'),'/scripts')]"
   },
 
-   "resources":[
+  "resources": [
     {
       "name": "CreatingStorageAccounts",
       "type": "Microsoft.Resources/deployments",
@@ -365,7 +365,7 @@
         }
       }
     }
-   ],
+  ],
    "outputs": {
      "fqdn": {
        "value": "[variables('sharepointWebfqdn')]",
