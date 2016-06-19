@@ -13,13 +13,13 @@
     }
   },
   "variables": {
-    "apiVersion": "2015-06-15"
+    "storageApiVersion": "2015-06-15"
   },
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[concat(parameters('storageAccountNamePrefix'), 'fs', substring(uniquestring(resourceGroup().id), 0, 4))]",
-      "apiVersion": "[variables('apiVersion')]",
+      "apiVersion": "[variables('storageApiVersion')]",
       "location": "[parameters('location')]",
       "properties": {
         "accountType": "[parameters('storageAccountType')]"
@@ -27,8 +27,8 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), 'ad', substring(uniquestring(resourceGroup().id), 1, 4))]",
-      "apiVersion": "[variables('apiVersion')]",
+      "name": "[concat(parameters('storageAccountNamePrefix'), 'ad', substring(uniquestring(resourceGroup().id), 0, 4))]",
+      "apiVersion": "[variables('storageApiVersion')]",
       "location": "[parameters('location')]",
       "properties": {
         "accountType": "[parameters('storageAccountType')]"
@@ -36,8 +36,8 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), 'sql', substring(uniquestring(resourceGroup().id), 2, 4))]",
-      "apiVersion": "[variables('apiVersion')]",
+      "name": "[concat(parameters('storageAccountNamePrefix'), 'sql', substring(uniquestring(resourceGroup().id), 0, 4))]",
+      "apiVersion": "[variables('storageApiVersion')]",
       "location": "[parameters('location')]",
       "properties": {
         "accountType": "[parameters('storageAccountType')]"
@@ -45,8 +45,8 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), 'web', substring(uniquestring(resourceGroup().id), 3, 4))]",
-      "apiVersion": "[variables('apiVersion')]",
+      "name": "[concat(parameters('storageAccountNamePrefix'), 'web', substring(uniquestring(resourceGroup().id), 0, 4))]",
+      "apiVersion": "[variables('storageApiVersion')]",
       "location": "[parameters('location')]",
       "properties": {
         "accountType": "[parameters('storageAccountType')]"
@@ -54,8 +54,8 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), 'app', substring(uniquestring(resourceGroup().id), 4, 4))]",
-      "apiVersion": "[variables('apiVersion')]",
+      "name": "[concat(parameters('storageAccountNamePrefix'), 'app', substring(uniquestring(resourceGroup().id), 0, 4))]",
+      "apiVersion": "[variables('storageApiVersion')]",
       "location": "[parameters('location')]",
       "properties": {
         "accountType": "[parameters('storageAccountType')]"
@@ -64,7 +64,7 @@
     {
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[concat(parameters('storageAccountNamePrefix'), 'backup', substring(uniquestring(resourceGroup().id), 5, 4))]",
-      "apiVersion": "[variables('apiVersion')]",
+      "apiVersion": "[variables('storageApiVersion')]",
       "location": "[parameters('location')]",
       "properties": {
         "accountType": "Standard_LRS"

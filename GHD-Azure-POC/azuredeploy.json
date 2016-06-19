@@ -364,6 +364,41 @@
           }
         }
       }
+    },
+    {
+      "name": "SettingUpRdp",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('configuration').rdpIPAdressSetupURL]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "rdpIPAddressName": {
+            "value": "[variables('rdpIPAddressName')]"
+          },
+          "rdpLBName": {
+            "value": "[variables('lbSettings').rdpLBName]"
+          },
+          "rdpLBFE": {
+            "value": "[variables('lbSettings').rdpLBFE]"
+          },
+          "adLBBE": {
+            "value": "[variables('lbSettings').adLBBE]"
+          },
+          "RDPNAT": {
+            "value": "[variables('RDPNAT')]"
+          },
+          "rdplbFEConfigID": {
+            "value": "[variables('derivedIds').rdplbFEConfigID]"
+          }
+        }
+      }
     }
   ],
    "outputs": {
