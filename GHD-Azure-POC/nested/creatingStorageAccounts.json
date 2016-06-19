@@ -2,21 +2,24 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "storageAccountNamePrefix" : {
-      "type" : "string"
+    "storageAccountNamePrefix": {
+      "type": "string"
     },
-    "location" : {
-      "type" : "string"
+    "location": {
+      "type": "string"
     },
-    "storageAccountType" : {
-      "type" : "string"
+    "storageAccountType": {
+      "type": "string"
     }
   },
+  "variables": {
+    "apiVersion": "2015-01-01"
+  }
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[concat(parameters('storageAccountNamePrefix'), 'fs', substring(uniquestring(resourceGroup().id)), 0, 4)]",
-      "apiVersion": "2015-06-15",
+      "apiVersion": "[variables('apiVersion')]",
       "location": "[parameters('location')]",
       "description": "File Server storage account",
       "properties": {
