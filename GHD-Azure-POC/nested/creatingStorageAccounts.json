@@ -13,7 +13,7 @@
     }
   },
   "variables": {
-    "apiVersion": "2016-01-01"
+    "apiVersion": "2015-06-15"
   },
   "resources": [
     {
