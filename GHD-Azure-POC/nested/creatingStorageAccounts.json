@@ -13,12 +13,12 @@
     }
   },
   "variables": {
-    "apiVersion": "2015-01-01"
+    "apiVersion": "2016-05-15"
   },
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), 'fs', substring(uniquestring(resourceGroup().id)), 0, 4)]",
+      "name": "[concat(parameters('storageAccountNamePrefix'), 'fs', substring(uniquestring(resourceGroup().id), 0, 4))]",
       "apiVersion": "[variables('apiVersion')]",
       "location": "[parameters('location')]",
       "description": "File Server storage account",
@@ -28,8 +28,8 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), 'ad', substring(uniquestring(resourceGroup().id)), 1, 4)]",
-      "apiVersion": "2015-06-15",
+      "name": "[concat(parameters('storageAccountNamePrefix'), 'ad', substring(uniquestring(resourceGroup().id), 1, 4))]",
+      "apiVersion": "[variables('apiVersion')]",
       "location": "[parameters('location')]",
       "description": "Domain Controller storage account",
       "properties": {
@@ -38,8 +38,8 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), 'sql', substring(uniquestring(resourceGroup().id)), 2, 4)]",
-      "apiVersion": "2015-06-15",
+      "name": "[concat(parameters('storageAccountNamePrefix'), 'sql', substring(uniquestring(resourceGroup().id), 2, 4))]",
+      "apiVersion": "[variables('apiVersion')]",
       "location": "[parameters('location')]",
       "description": "SQL storage account",
       "properties": {
@@ -48,8 +48,8 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), 'web', substring(uniquestring(resourceGroup().id)), 3, 4)]",
-      "apiVersion": "2015-06-15",
+      "name": "[concat(parameters('storageAccountNamePrefix'), 'web', substring(uniquestring(resourceGroup().id), 3, 4))]",
+      "apiVersion": "[variables('apiVersion')]",
       "location": "[parameters('location')]",
       "description": "Sharepoint Web Server storage account",
       "properties": {
@@ -58,8 +58,8 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), 'app', substring(uniquestring(resourceGroup().id)), 4, 4)]",
-      "apiVersion": "2015-06-15",
+      "name": "[concat(parameters('storageAccountNamePrefix'), 'app', substring(uniquestring(resourceGroup().id), 4, 4))]",
+      "apiVersion": "[variables('apiVersion')]",
       "location": "[parameters('location')]",
       "description": "Sharepoint App Server storage account",
       "properties": {
@@ -68,8 +68,8 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), 'backup', substring(uniquestring(resourceGroup().id)), 5, 4)]",
-      "apiVersion": "2015-06-15",
+      "name": "[concat(parameters('storageAccountNamePrefix'), 'backup', substring(uniquestring(resourceGroup().id), 5, 4))]",
+      "apiVersion": "[variables('apiVersion')]",
       "location": "[parameters('location')]",
       "description": "Backup and diagnostics storage account",
       "properties": {
