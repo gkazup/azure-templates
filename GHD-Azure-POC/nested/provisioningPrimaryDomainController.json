@@ -87,7 +87,7 @@
         "dataDisks": [
           {
             "vhd": {
-              "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('adPDCVMName'),'data-1.vhd')]"
+              "uri": "[concat('http://',parameters('storageAccountName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('adPDCVMName'),'-data-1.vhd')]"
             },
             "name":"[concat(parameters('adPDCVMName'),'-data-disk1')]",
             "createOption": "empty",
