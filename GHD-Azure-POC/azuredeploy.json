@@ -485,7 +485,7 @@
             "value": "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]"
           },
           "fsAppAvailabilitySetName": {
-            "value": "[variables('vmSettings').availabilitySets.fsAppAvailabilitySetName]"
+            "value": "[variables('vmSettings').availabilitySets.fsAvailabilitySetName]"
           }
         }
       }

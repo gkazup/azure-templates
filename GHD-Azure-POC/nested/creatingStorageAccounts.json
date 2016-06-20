@@ -63,7 +63,7 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), 'diag', substring(uniquestring(resourceGroup().id), 5, 4))]",
+      "name": "[concat(parameters('storageAccountNamePrefix'), 'diag', substring(uniquestring(resourceGroup().id), 0, 4))]",
       "apiVersion": "[variables('storageApiVersion')]",
       "location": "[parameters('location')]",
       "properties": {
