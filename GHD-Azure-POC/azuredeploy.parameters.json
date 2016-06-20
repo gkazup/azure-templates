@@ -35,9 +35,6 @@
         "spWebIPAddressName" : {
             "value" : "spWebIp"
         },
-        "spWebIPNewOrExisting": {
-            "value" : "new"
-        },
         "dnsPrefix": {
             "value" : "GEN-UNIQUE"
         },
