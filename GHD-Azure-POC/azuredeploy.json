@@ -86,13 +86,6 @@
         "Standard_RA-GRS"
       ]
     },
-    "spWebIPRGName": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "Resource Group containing existing SP Web IP address"
-      }
-    },
     "spWebIPAddressName": {
       "type": "string",
       "metadata": {
@@ -255,7 +248,6 @@
     "spWebSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').spWebSubnetName)]",
     "spAppSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').spAppSubnetName)]",
     "fsSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').fsSubnetName)]",
-    "spWebResourceIdexisting": "[resourceId(parameters('spWebIPRGName'),concat('Microsoft.Network','/','publicIPAddresses'),parameters('spWebIPAddressName'))]",
     "spWebResourceIdnew": "[resourceId(concat('Microsoft.Network','/','publicIPAddresses'),parameters('spWebIPAddressName'))]",
     "sharepointCAfqdn": "[concat(variables('spCADNSPrefix'),'.',toLower(trim(replace(parameters('location'),' ' ,''))),'.cloudapp.azure.com')]",
     "sharepointWebfqdn": "[concat(parameters('dnsPrefix'),'.',toLower(trim(replace(parameters('location'),' ' ,''))),'.cloudapp.azure.com')]",
@@ -412,9 +404,6 @@
           },
           "dnsPrefix": {
             "value": "[parameters('dnsPrefix')]"
-          },
-          "publicIpRGName": {
-            "value": "[parameters('spWebIPRGName')]"
           }
         }
       }

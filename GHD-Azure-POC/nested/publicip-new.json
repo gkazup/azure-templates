@@ -13,9 +13,6 @@
     },
     "dnsPrefix": {
       "type": "string"
-    },
-    "publicIpRGName": {
-      "type": "string"
     }
   },
   "resources": [
