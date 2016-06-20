@@ -90,13 +90,15 @@
       "type": "string",
       "metadata": {
         "description": "The new IP address name for SP Web "
-      }
+      },
+      "defaultValue": "ghdsp01"
     },
     "dnsPrefix": {
       "type": "string",
       "metadata": {
         "description": "The DNS Prefix for the Public IP Address for the Sharepoint Web Application"
-      }
+      },
+      "defaultValue": "ghdsp01"
     },
     "baseUrl": {
       "type": "string",
@@ -122,10 +124,10 @@
     "spSiteTemplateName": "STS#0",
 
     "adVMSize": "Standard_DS1",
-    "sqlVMSize": "Standard_DS3",
+    "sqlVMSize": "Standard_DS2",
     "witnessVMSize": "Standard_DS1",
     "spVMSize": "Standard_DS2",
-    "fsVMSize": "Standard_DS2",
+    "fsVMSize": "Standard_DS1",
 
     "spCADNSPrefix": "[concat(parameters('dnsPrefix'),'admin')]",
     "spCAIPAddressName": "[concat(parameters('spWebIPAddressName'),'admin')]",
