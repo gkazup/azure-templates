@@ -919,6 +919,196 @@
           }
         }
       }
+    },
+    {
+      "name": "ProvisioningSQLVirtualMachines",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "dependsOn": [
+        "Microsoft.Resources/deployments/CreatingStorageAccounts",
+        "Microsoft.Resources/deployments/CreatingNetworkInterfaces",
+        "Microsoft.Resources/deployments/CreatingAvailabilitySets"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('configuration').provisioningSQLVMsURL]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "sqlVMName": {
+            "value": "[variables('vmSettings').sqlVMName]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "storageAccountName": {
+            "value": "[variables('storageAccountnames').sql]"
+          },
+          "diagAccountName": {
+            "value": "[variables('storageAccountnames').diag]"
+          },
+          "availabilitySet": {
+            "value": "[variables('ids').sqlAvailabilitySetName]"
+          },
+          "sqlVMSize": {
+            "value": "[variables('sqlVMSize')]"
+          },
+          "adminUsername": {
+            "value": "[parameters('adminUsername')]"
+          },
+          "adminPassword": {
+            "value": "[parameters('adminPassword')]"
+          },
+          "windowsImagePublisher": {
+            "value": "[variables('vmSettings').windowsImagePublisher]"
+          },
+          "windowsImageOffer": {
+            "value": "[variables('vmSettings').windowsImageOffer]"
+          },
+          "windowsImageSKU": {
+            "value": "[variables('vmSettings').windowsImageSKU]"
+          },
+          "vmContainerName": {
+            "value": "[variables('vmSettings').vmContainerName]"
+          },
+          "sqlImagePublisher": {
+            "value": "[variables('vmSettings').sqlImagePublisher]"
+          },
+          "sqlImageOffer": {
+            "value": "[variables('vmSettings').sqlImageOffer]"
+          },
+          "sqlImageSKU": {
+            "value": "[variables('vmSettings').sqlImageSKU]"
+          },
+          "domainName": {
+            "value": "[parameters('domainName')]"
+          },
+          "sqlAOPrepareModulesURL": {
+            "value": "[variables('configuration').sqlAOPrepareModulesURL]"
+          },
+          "sqlAOPrepareFunction": {
+            "value": "[variables('configuration').sqlAOPrepareFunction]"
+          },
+          "prepareClusterModulesURL": {
+            "value": "[variables('configuration').prepareClusterModulesURL]"
+          },
+          "prepareClusterConfigurationFunction": {
+            "value": "[variables('configuration').prepareClusterConfigurationFunction]"
+          },
+          "sharePath": {
+            "value": "[variables('sharePath')]"
+          },
+          "witnessVMSize": {
+            "value": "[variables('witnessVMSize')]"
+          },
+          "sqlwVMName": {
+            "value": "[variables('vmSettings').sqlwVMName]"
+          },
+          "sqlwNicName": {
+            "value": "[variables('sqlwNicName')]"
+          },
+          "fswPreparationModulesURL": {
+            "value": "[variables('configuration').fswPreparationModulesURL]"
+          },
+          "fswPreparationFunction": {
+            "value": "[variables('configuration').fswPreparationFunction]"
+          },
+          "DNSServer": {
+            "value": "[variables('adPDCNICIPAddress')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "ConfiguringSQLAlwaysOnCluster",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "dependsOn": [
+        "Microsoft.Resources/deployments/UpdatingDNSwithBackupADVM",
+        "Microsoft.Resources/deployments/ProvisioningSQLVirtualMachines"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('configuration').configuringSQLAlwaysOnClusterUrl]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "sqlVMName": {
+            "value": "[variables('vmSettings').sqlVMName]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "adminUsername": {
+            "value": "[parameters('adminUsername')]"
+          },
+          "adminPassword": {
+            "value": "[parameters('adminPassword')]"
+          },
+          "domainName": {
+            "value": "[parameters('domainName')]"
+          },
+          "sqlAOConfigurationModulesURL": {
+            "value": "[variables('configuration').sqlAOConfigurationModulesURL]"
+          },
+          "sqlAOConfigurationFunction": {
+            "value": "[variables('configuration').sqlAOConfigurationFunction]"
+          },
+          "sqlAOEPName": {
+            "value": "[variables('sqlAOEPName')]"
+          },
+          "sqlServerServiceAccountUserName": {
+            "value": "[parameters('sqlServerServiceAccountUserName')]"
+          },
+          "sharePointSetupUserAccountUserName": {
+            "value": "[parameters('sharePointSetupUserAccountUserName')]"
+          },
+          "sqlServerServiceAccountPassword": {
+            "value": "[parameters('sqlServerServiceAccountPassword')]"
+          },
+          "sharePointSetupUserAccountPassword": {
+            "value": "[parameters('sharePointSetupUserAccountPassword')]"
+          },
+          "configureClusterModulesURL": {
+            "value": "[variables('configuration').configureClusterModulesURL]"
+          },
+          "configureClusterConfigurationFunction": {
+            "value": "[variables('configuration').configureClusterConfigurationFunction]"
+          },
+          "clusterName": {
+            "value": "[variables('clusterName')]"
+          },
+          "sharePath": {
+            "value": "[variables('sharePath')]"
+          },
+          "sqlAOAGName": {
+            "value": "[variables('sqlAOAGName')]"
+          },
+          "sqlAOListenerName": {
+            "value": "[variables('sqlAOListenerName')]"
+          },
+          "sqlLBName": {
+            "value": "[variables('lbSettings').sqlLBName]"
+          },
+          "sqlLBIPAddress": {
+            "value": "[variables('sqlLBIPAddress')]"
+          },
+          "adPDCVMName": {
+            "value": "[variables('vmSettings').adPDCVMName]"
+          },
+          "sqlwVMName": {
+            "value": "[variables('vmSettings').sqlwVMName]"
+          },
+          "fswConfigurationModulesURL": {
+            "value": "[variables('configuration').fswConfigurationModulesURL]"
+          },
+          "fswConfigurationFunction": {
+            "value": "[variables('configuration').fswConfigurationFunction]"
+          }
+        }
+      }
     }
   ],
    "outputs": {
