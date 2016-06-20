@@ -399,6 +399,122 @@
           }
         }
       }
+    },
+    {
+      "name": "SettingUpSharepointWebPublicIP",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('configuration').spWebIPAdressSetupURL]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "publicIPAddressName": {
+            "value": "[parameters('spWebIPAddressName')]"
+          },
+          "publicIPAddressType": {
+            "value": "dynamic"
+          },
+          "dnsPrefix": {
+            "value": "[parameters('dnsPrefix')]"
+          },
+          "publicIpRGName": {
+            "value": "[parameters('spWebIPRGName')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "SettingUpSharepointCentralAdminPublicIP",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('configuration').spCAIPAdressSetupURL]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "publicIPAddressName": {
+            "value": "[variables('spCAIPAddressName')]"
+          },
+          "publicIPAddressType": {
+            "value": "dynamic"
+          },
+          "dnsPrefix": {
+            "value": "[variables('spCADNSPrefix')]"
+          },
+          "publicIpRGName": {
+            "value": "[resourceGroup().name]"
+          }
+        }
+      }
+    },
+    {
+      "name": "CreatingAvailabilitySets",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('configuration').availabilitySetSetupURL]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "adAvailabilitySetName": {
+            "value": "[variables('vmSettings').availabilitySets.adAvailabilitySetName]"
+          },
+          "sqlAvailabilitySetName": {
+            "value": "[variables('vmSettings').availabilitySets.sqlAvailabilitySetName]"
+          },
+          "spWebAvailabilitySetName": {
+            "value": "[variables('vmSettings').availabilitySets.spWebAvailabilitySetName]"
+          },
+          "spAppAvailabilitySetName": {
+            "value": "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]"
+          },
+          "fsAppAvailabilitySetName": {
+            "value": "[variables('vmSettings').availabilitySets.fsAppAvailabilitySetName]"
+          }
+        }
+      }
+    },
+    {
+      "name": "CreatingVirtualNetwork",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('configuration').vnetSetupURL]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "virtualNetworkName": {
+            "value": "[variables('virtualNetworkName')]"
+          },
+          "virtualNetworkAddressRange": {
+            "value": "[variables('virtualNetworkAddressRange')]"
+          },
+          "subnets": {
+            "value": "[variables('subnets')]"
+          }
+        }
+      }
     }
   ],
    "outputs": {

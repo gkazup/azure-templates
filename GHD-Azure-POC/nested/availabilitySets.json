@@ -14,39 +14,48 @@
     "spAppAvailabilitySetName": {
       "type": "string"
     },
+    "fsAvailabilitySetName": {
+      "type": "string"
+    },
     "location": {
       "type": "string"
     }
   },
   "resources": [
     {
-			"type": "Microsoft.Compute/availabilitySets",
-			"name": "[parameters('adAvailabilitySetName')]",
-			"apiVersion": "2015-06-15",
-			"location": "[parameters('location')]"
-		},
-		{
-			"type": "Microsoft.Compute/availabilitySets",
-			"name": "[parameters('sqlAvailabilitySetName')]",
-			"apiVersion": "2015-06-15",
-			"location": "[parameters('location')]",
-			"properties": {
-				"platformFaultDomainCount": "3",
-				"platformUpdateDomainCount": "3"
-			}
-		},
-		{
-			"type": "Microsoft.Compute/availabilitySets",
-			"name": "[parameters('spWebAvailabilitySetName')]",
-			"apiVersion": "2015-06-15",
-			"location": "[parameters('location')]"
-		},
-		{
-			"type": "Microsoft.Compute/availabilitySets",
-			"name": "[parameters('spAppAvailabilitySetName')]",
-			"apiVersion": "2015-06-15",
-			"location": "[parameters('location')]"
-		}
+      "type": "Microsoft.Compute/availabilitySets",
+      "name": "[parameters('adAvailabilitySetName')]",
+      "apiVersion": "2015-06-15",
+      "location": "[parameters('location')]"
+    },
+    {
+      "type": "Microsoft.Compute/availabilitySets",
+      "name": "[parameters('sqlAvailabilitySetName')]",
+      "apiVersion": "2015-06-15",
+      "location": "[parameters('location')]",
+      "properties": {
+        "platformFaultDomainCount": "3",
+        "platformUpdateDomainCount": "3"
+      }
+    },
+    {
+      "type": "Microsoft.Compute/availabilitySets",
+      "name": "[parameters('spWebAvailabilitySetName')]",
+      "apiVersion": "2015-06-15",
+      "location": "[parameters('location')]"
+    },
+    {
+      "type": "Microsoft.Compute/availabilitySets",
+      "name": "[parameters('fsAvailabilitySetName')]",
+      "apiVersion": "2015-06-15",
+      "location": "[parameters('location')]"
+    },
+    {
+      "type": "Microsoft.Compute/availabilitySets",
+      "name": "[parameters('spAppAvailabilitySetName')]",
+      "apiVersion": "2015-06-15",
+      "location": "[parameters('location')]"
+    }
   ],
   "outputs": {
     "adAvailabilitySetName": {
@@ -64,6 +73,10 @@
     "spAppAvailabilitySetName": {
       "type": "string",
       "value": "[resourceId('Microsoft.Compute/availabilitySets',parameters('spAppAvailabilitySetName'))]"
+    },
+    "fsAvailabilitySetName": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.Compute/availabilitySets',parameters('fsAvailabilitySetName'))]"
     }
   }
 }
