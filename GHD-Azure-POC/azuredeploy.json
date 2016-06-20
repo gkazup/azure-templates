@@ -110,6 +110,14 @@
   "variables": {
     "apiVersion": "2016-01-01",
     "storageAccountNamePrefix": "ghdnet",
+    "storageAccountnames": {
+      "ad": "[concat(variables('storageAccountNamePrefix'), 'ad', substring(uniquestring(resourceGroup().id), 0, 4))]",
+      "sql": "[concat(variables('storageAccountNamePrefix'), 'sql', substring(uniquestring(resourceGroup().id), 0, 4))]",
+      "web": "[concat(variables('storageAccountNamePrefix'), 'web', substring(uniquestring(resourceGroup().id), 0, 4))]",
+      "app": "[concat(variables('storageAccountNamePrefix'), 'app', substring(uniquestring(resourceGroup().id), 0, 4))]",
+      "fs": "[concat(variables('storageAccountNamePrefix'), 'fs', substring(uniquestring(resourceGroup().id), 0, 4))]",
+      "diag": "[concat(variables('storageAccountNamePrefix'), 'diag', substring(uniquestring(resourceGroup().id), 0, 4))]"
+    },
     "sharepointFarmName": "spfarm",
     "spSiteTemplateName": "STS#0",
 
@@ -662,6 +670,74 @@
           },
           "fsSubnetRef": {
             "value": "[variables('fsSubnetRef')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "ProvisioningPrimaryADDomainController",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "dependsOn": [
+        "Microsoft.Resources/deployments/CreatingStorageAccounts",
+        "Microsoft.Resources/deployments/CreatingNetworkInterfaces",
+        "Microsoft.Resources/deployments/CreatingAvailabilitySets",
+        "Microsoft.Resources/deployments/SettingUpRdp"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('configuration').provisioningPrimaryDCURL]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "adPDCVMName": {
+            "value": "[variables('vmSettings').adPDCVMName]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "storageAccountName": {
+            "value": "[variables('storageAccountnames').ad]"
+          },
+          "diagAccountName": {
+            "value": "[variables('storageAccountnames').diag]"
+          },
+          "availabilitySet": {
+            "value": "[variables('ids').adAvailabilitySetName]"
+          },
+          "adVMSize": {
+            "value": "[variables('adVMSize')]"
+          },
+          "adminUsername": {
+            "value": "[parameters('adminUsername')]"
+          },
+          "adminPassword": {
+            "value": "[parameters('adminPassword')]"
+          },
+          "windowsImagePublisher": {
+            "value": "[variables('vmSettings').windowsImagePublisher]"
+          },
+          "windowsImageOffer": {
+            "value": "[variables('vmSettings').windowsImageOffer]"
+          },
+          "windowsImageSKU": {
+            "value": "[variables('vmSettings').windowsImageSKU]"
+          },
+          "vmContainerName": {
+            "value": "[variables('vmSettings').vmContainerName]"
+          },
+          "adPDCNicName": {
+            "value": "[variables('adPDCNicName')]"
+          },
+          "domainName": {
+            "value": "[parameters('domainName')]"
+          },
+          "adPDCConfigurationFunction": {
+            "value": "[variables('configuration').adPDCConfigurationFunction]"
+          },
+          "adPDCModulesURL": {
+            "value": "[variables('configuration').adPDCModulesURL]"
           }
         }
       }
