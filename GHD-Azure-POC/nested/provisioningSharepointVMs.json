@@ -92,7 +92,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://',parameters('appStorageAccountName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('spappVMName'), copyindex(1),'-osdisk.vhd')]"
+              "uri": "[concat('https://',parameters('appStorageAccountName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('spappVMName'), copyindex(1),'-osdisk.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -100,7 +100,7 @@
           "dataDisks": [
             {
               "vhd": {
-                "uri": "[concat('http://',parameters('appStorageAccountName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('spappVMName'), copyindex(1), '-Data-1.vhd')]"
+                "uri": "[concat('https://',parameters('appStorageAccountName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('spappVMName'), copyindex(1), '-Data-1.vhd')]"
               },
               "name":"[concat(parameters('spappVMName'), copyindex(1),'-data-disk1')]",
               "caching" : "None",
@@ -120,7 +120,7 @@
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": "true",
-	 		 		  "storageUri": "[concat('http://',parameters('diagStorageAccountName'),'.blob.core.windows.net')]"
+	 		 		  "storageUri": "[concat('https://',parameters('diagStorageAccountName'),'.blob.core.windows.net')]"
           }
         }
       }
@@ -184,7 +184,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://',parameters('webStorageAccountName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('spwebVMName'), copyindex(1),'-osdisk.vhd')]"
+              "uri": "[concat('https://',parameters('webStorageAccountName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('spwebVMName'), copyindex(1),'-osdisk.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -192,7 +192,7 @@
           "dataDisks": [
             {
               "vhd": {
-                "uri": "[concat('http://',parameters('webStorageAccountName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('spwebVMName'), copyindex(1), '-Data-1.vhd')]"
+                "uri": "[concat('https://',parameters('webStorageAccountName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('spwebVMName'), copyindex(1), '-Data-1.vhd')]"
               },
               "name":"[concat(parameters('spwebVMName'), copyindex(1),'-data-disk1')]",
               "caching" : "None",
@@ -212,7 +212,7 @@
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": "true",
-            "storageUri": "[concat('http://',parameters('diagStorageAccountName'),'.blob.core.windows.net')]"
+            "storageUri": "[concat('https://',parameters('diagStorageAccountName'),'.blob.core.windows.net')]"
           }
         }
       }
