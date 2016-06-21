@@ -1382,7 +1382,7 @@
             "value": "London"
           },
           "bandwidthInMbps": {
-            "value": "100Mbps"
+            "value": "100"
           },
           "sku_tier": {
             "value": "Premium"
