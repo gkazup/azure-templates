@@ -148,7 +148,7 @@
           "configurationFunction": "[parameters('fsPreparationFunction')]",
           "properties": {
             "DNSServer": "[parameters('DNSServer')]",
-            "SharePath": "[parameters('sharePath')]"
+            "SharePath": "[concat(parameters('sharePath'),copyindex(1))]"
           }
         }
       }

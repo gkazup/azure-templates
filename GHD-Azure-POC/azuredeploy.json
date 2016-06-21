@@ -335,6 +335,8 @@
       "provisioningSQLVMsURL": "[concat(parameters('baseUrl'),'/nested/provisioningSQLVMs.json')]",
       "provisioningFSVMsURL": "[concat(parameters('baseUrl'),'/nested/provisioningFSVMs.json')]",
       "vnetSetupURL": "[concat(parameters('baseUrl'),'/nested/vnet-new.json')]",
+      "expressrouteSetupURL": "[concat(parameters('baseUrl'),'/nested/creatingExpressroute.json')]",
+      "vpnSetupURL": "[concat(parameters('baseUrl'),'/nested/creatingVPN.json')]",
       "setupLBsUrl": "[concat(parameters('baseUrl'),'/nested/setupLBs.json')]",
       "creatingNicsUrl": "[concat(parameters('baseUrl'),'/nested/creatingNICS.json')]"
     },
@@ -1355,6 +1357,85 @@
           },
           "DNSServer": {
             "value": "[variables('adPDCNICIPAddress')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "CreatingExpressroute",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('configuration').expressrouteSetupURL]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "circuitName": {
+            "value": "[concat(variables('prefix'),'-expressroute')]"
+          },
+          "serviceProviderName": {
+            "value": "Equinix"
+          },
+          "peeringLocation": {
+            "value": "London"
+          },
+          "bandwidthInMbps": {
+            "value": "100"
+          },
+          "sku_tier": {
+            "value": "Premium"
+          },
+          "sku_family": {
+            "value": "UnlimitedData"
+          }
+        }
+      }
+    },
+    {
+      "name": "CreatingVPN",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('configuration').vpnSetupURL]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "vpnType": {
+            "value": "RouteBased"
+          },
+          "localGatewayName": {
+            "value": "[concat(variables('prefix'),'-vpngateway')]"
+          },
+          "localGatewayIpAddress": {
+            "value": "192.168.0.1"
+          },
+          "localAddressPrefix": {
+            "value": "192.168.0.0/16"
+          },
+          "virtualNetworkName": {
+            "value": "[variables('virtualNetworkName')]"
+          },
+          "azureVNetAddressPrefix": {
+            "value": "[variables('virtualNetworkAddressRange')]"
+          },
+          "gatewayPublicIPName": {
+            "value": "[concat(variables('prefix'),'azureVPNGatewayIP')]"
+          },
+          "gatewayName": {
+            "value": "[concat(variables('prefix'),'-azureGateway')]"
+          },
+          "gatewaySku": {
+            "value": "Standard"
+          },
+          "connectionName": {
+            "value": "[concat(variables('prefix'),'-vpnconnection')]"
+          },
+          "sharedKey": {
+            "value": "long-securestring-comes-here"
           }
         }
       }
