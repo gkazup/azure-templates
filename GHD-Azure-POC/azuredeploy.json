@@ -1346,6 +1346,12 @@
           "fsPreparationFunction": {
             "value": "[variables('configuration').fsPreparationFunction]"
           },
+          "fsConfigurationModulesURL": {
+            "value": "[variables('configuration').fsConfigurationModulesURL]"
+          },
+          "fsConfigurationFunction": {
+            "value": "[variables('configuration').fsConfigurationFunction]"
+          },
           "DNSServer": {
             "value": "[variables('adPDCNICIPAddress')]"
           }
