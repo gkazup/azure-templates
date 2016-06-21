@@ -249,6 +249,7 @@
     "sqlAOAGName": "[concat(variables('prefix'),'-ag')]",
     "sqlAOListenerName": "[concat(variables('prefix'),'ag-listener')]",
     "sharePath": "[concat(variables('prefix'),'-fsw')]",
+    "fsSharePath": "[concat(variables('prefix'),'-fs')]",
     "clusterName": "[concat(variables('prefix'),'-fc')]",
     "adPDCNicName": "[concat(variables('vmSettings').adPDCVMName,'-nic')]",
     "adBDCNicName": "[concat(variables('vmSettings').adBDCVMName,'-nic')]",
@@ -1338,7 +1339,7 @@
             "value": "[parameters('domainName')]"
           },
           "sharePath": {
-            "value": "[variables('sharePath')]"
+            "value": "[variables('fsSharePath')]"
           },
           "fsPreparationModulesURL": {
             "value": "[variables('configuration').fsPreparationModulesURL]"

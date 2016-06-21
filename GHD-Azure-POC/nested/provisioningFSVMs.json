@@ -148,7 +148,44 @@
           "configurationFunction": "[parameters('fsPreparationFunction')]",
           "properties": {
             "DNSServer": "[parameters('DNSServer')]",
-            "DomainName": "[parameters('domainName')]"
+            "SharePath": "[parameters('sharePath')]"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('fsVMName'), copyindex(1),'/ConfigureFSServer')]",
+      "apiVersion": "2015-06-15",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('fsVMName'),copyindex(1),'/extensions/PrepareFSServer')]"
+      ],
+      "copy": {
+        "name": "fsConfigLoop",
+        "count": 2
+      },
+      "properties": {
+        "publisher": "Microsoft.Powershell",
+        "type": "DSC",
+        "typeHandlerVersion": "2.13",
+        "autoUpgradeMinorVersion": false,
+        "settings": {
+          "modulesURL": "[parameters('fsConfigurationModulesURL')]",
+          "wmfVersion": "4.0",
+          "configurationFunction": "[parameters('fsConfigurationFunction')]",
+          "properties": {
+            "domainName": "[parameters('domainName')]",
+            "adminCreds": {
+              "userName": "[parameters('adminUserName')]",
+              "password": "privateSettingsRef:adminPassword"
+            }
+
+          }
+        },
+        "protectedSettings": {
+          "items": {
+            "adminPassword": "[parameters('adminPassword')]"
           }
         }
       }
