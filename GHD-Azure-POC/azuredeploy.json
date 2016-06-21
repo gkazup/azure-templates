@@ -1109,6 +1109,172 @@
           }
         }
       }
+    },
+    {
+      "name": "CreatingSharepointVirtualMachines",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "dependsOn": [
+        "Microsoft.Resources/deployments/CreatingStorageAccounts",
+        "Microsoft.Resources/deployments/CreatingNetworkInterfaces",
+        "Microsoft.Resources/deployments/CreatingAvailabilitySets"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('configuration').provisioningSharepointVMsURL]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "spappVMName": {
+            "value": "[variables('vmSettings').spappVMName]"
+          },
+          "spwebVMName": {
+            "value": "[variables('vmSettings').spwebVMName]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "spVMSize": {
+            "value": "[variables('spVMSize')]"
+          },
+          "spWebAvailabilitySet": {
+            "value": "[variables('ids').spWebAvailabilitySetName]"
+          },
+          "spAppAvailabilitySet": {
+            "value": "[variables('ids').spAppAvailabilitySetName]"
+          },
+          "adminUsername": {
+            "value": "[parameters('adminUsername')]"
+          },
+          "adminPassword": {
+            "value": "[parameters('adminPassword')]"
+          },
+          "spImagePublisher": {
+            "value": "[variables('vmSettings').spImagePublisher]"
+          },
+          "spImageOffer": {
+            "value": "[variables('vmSettings').spImageOffer]"
+          },
+          "spImageSKU": {
+            "value": "[variables('vmSettings').spImageSKU]"
+          },
+          "vmContainerName": {
+            "value": "[variables('vmSettings').vmContainerName]"
+          },
+          "webStorageAccountName": {
+            "value": "[variables('storageAccountnames').web]"
+          },
+          "appStorageAccountName": {
+            "value": "[variables('storageAccountnames').app]"
+          },
+          "diagStorageAccountName": {
+            "value": "[variables('storageAccountnames').diag]"
+          },
+          "spPreparationModulesURL": {
+            "value": "[variables('configuration').spPreparationModulesURL]"
+          },
+          "spPreparationFunction": {
+            "value": "[variables('configuration').spPreparationFunction]"
+          },
+          "domainName": {
+            "value": "[parameters('domainName')]"
+          },
+          "DNSServer": {
+            "value": "[variables('adPDCNICIPAddress')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "ConfiguringSharepoint",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "dependsOn": [
+        "Microsoft.Resources/deployments/ConfiguringSQLAlwaysOnCluster",
+        "Microsoft.Resources/deployments/CreatingSharepointVirtualMachines"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('configuration').configuringSharepointUrl]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "spappVMName": {
+            "value": "[variables('vmSettings').spappVMName]"
+          },
+          "sqlVMName": {
+            "value": "[variables('vmSettings').sqlVMName]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "spConfigurationModulesURL": {
+            "value": "[variables('configuration').spConfigurationModulesURL]"
+          },
+          "spConfigurationFunction": {
+            "value": "[variables('configuration').spConfigurationFunction]"
+          },
+          "domainName": {
+            "value": "[parameters('domainName')]"
+          },
+          "adminUserName": {
+            "value": "[parameters('adminUserName')]"
+          },
+          "adminPassword": {
+            "value": "[parameters('adminPassword')]"
+          },
+          "sharePointSetupUserAccountUserName": {
+            "value": "[parameters('sharePointSetupUserAccountUserName')]"
+          },
+          "sharePointFarmAccountUserName": {
+            "value": "[parameters('sharePointFarmAccountUserName')]"
+          },
+          "sqlServerServiceAccountUserName": {
+            "value": "[parameters('sqlServerServiceAccountUserName')]"
+          },
+          "sqlAOAGName": {
+            "value": "[variables('sqlAOAGName')]"
+          },
+          "administrationContentDatabaseName": {
+            "value": "[variables('administrationContentDatabaseName')]"
+          },
+          "configDatabaseName": {
+            "value": "[variables('configDatabaseName')]"
+          },
+          "contentDatabaseName": {
+            "value": "[variables('contentDatabaseName')]"
+          },
+          "sharepointCAfqdn": {
+            "value": "[variables('sharepointCAfqdn')]"
+          },
+          "sharePointSetupUserAccountPassword": {
+            "value": "[parameters('sharePointSetupUserAccountPassword')]"
+          },
+          "sharePointFarmAccountPassword": {
+            "value": "[parameters('sharePointFarmAccountPassword')]"
+          },
+          "sharePointFarmPassphrasePassword": {
+            "value": "[parameters('sharePointFarmPassphrasePassword')]"
+          },
+          "sqlServerServiceAccountPassword": {
+            "value": "[parameters('sqlServerServiceAccountPassword')]"
+          },
+          "spwebVMName": {
+            "value": "[variables('vmSettings').spwebVMName]"
+          },
+          "sharepointFarmName": {
+            "value": "[variables('sharepointFarmName')]"
+          },
+          "sharepointWebfqdn": {
+            "value": "[variables('sharepointWebfqdn')]"
+          },
+          "spSiteTemplateName": {
+            "value": "[variables('spSiteTemplateName')]"
+          }
+        }
+      }
     }
   ],
    "outputs": {
