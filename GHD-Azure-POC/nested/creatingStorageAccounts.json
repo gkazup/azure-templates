@@ -2,8 +2,8 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "storageAccountNamePrefix": {
-      "type": "string"
+    "storageAccountNames": {
+      "type": "object"
     },
     "location": {
       "type": "string"
@@ -18,7 +18,7 @@
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), 'fs', substring(uniquestring(resourceGroup().id), 0, 4))]",
+      "name": "[parameters('storageAccountNames').fs]",
       "apiVersion": "[variables('storageApiVersion')]",
       "location": "[parameters('location')]",
       "properties": {
@@ -27,7 +27,7 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), 'ad', substring(uniquestring(resourceGroup().id), 0, 4))]",
+      "name": "[parameters('storageAccountNames').ad]",
       "apiVersion": "[variables('storageApiVersion')]",
       "location": "[parameters('location')]",
       "properties": {
@@ -36,7 +36,7 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), 'sql', substring(uniquestring(resourceGroup().id), 0, 4))]",
+      "name": "[parameters('storageAccountNames').sql]",
       "apiVersion": "[variables('storageApiVersion')]",
       "location": "[parameters('location')]",
       "properties": {
@@ -45,7 +45,7 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), 'web', substring(uniquestring(resourceGroup().id), 0, 4))]",
+      "name": "[parameters('storageAccountNames').web]",
       "apiVersion": "[variables('storageApiVersion')]",
       "location": "[parameters('location')]",
       "properties": {
@@ -54,7 +54,7 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), 'app', substring(uniquestring(resourceGroup().id), 0, 4))]",
+      "name": "[parameters('storageAccountNames').app]",
       "apiVersion": "[variables('storageApiVersion')]",
       "location": "[parameters('location')]",
       "properties": {
@@ -63,7 +63,7 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), 'diag', substring(uniquestring(resourceGroup().id), 0, 4))]",
+      "name": "[parameters('storageAccountNames').diag]",
       "apiVersion": "[variables('storageApiVersion')]",
       "location": "[parameters('location')]",
       "properties": {

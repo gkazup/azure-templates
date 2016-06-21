@@ -113,7 +113,7 @@
   "variables": {
     "apiVersion": "2016-01-01",
     "storageAccountNamePrefix": "ghdnet",
-    "storageAccountnames": {
+    "storageAccountNames": {
       "ad": "[concat(variables('storageAccountNamePrefix'), 'ad', substring(uniquestring(resourceGroup().id), 0, 4))]",
       "sql": "[concat(variables('storageAccountNamePrefix'), 'sql', substring(uniquestring(resourceGroup().id), 0, 4))]",
       "web": "[concat(variables('storageAccountNamePrefix'), 'web', substring(uniquestring(resourceGroup().id), 0, 4))]",
@@ -349,8 +349,8 @@
           "location": {
             "value": "[parameters('location')]"
           },
-          "storageAccountNamePrefix": {
-            "value": "[variables('storageAccountNamePrefix')]"
+          "storageAccountNames": {
+            "value": "[variables('storageAccountNames')]"
           },
           "storageAccountType": {
             "value": "[parameters('storageAccountType')]"
@@ -701,10 +701,10 @@
             "value": "[parameters('location')]"
           },
           "storageAccountName": {
-            "value": "[variables('storageAccountnames').ad]"
+            "value": "[variables('storageAccountNames').ad]"
           },
           "diagAccountName": {
-            "value": "[variables('storageAccountnames').diag]"
+            "value": "[variables('storageAccountNames').diag]"
           },
           "availabilitySet": {
             "value": "[variables('ids').adAvailabilitySetName]"
@@ -802,10 +802,10 @@
             "value": "[parameters('location')]"
           },
           "storageAccountName": {
-            "value": "[variables('storageAccountnames').ad]"
+            "value": "[variables('storageAccountNames').ad]"
           },
           "diagAccountName": {
-            "value": "[variables('storageAccountnames').diag]"
+            "value": "[variables('storageAccountNames').diag]"
           },
           "availabilitySet": {
             "value": "[variables('ids').adAvailabilitySetName]"
@@ -943,10 +943,10 @@
             "value": "[parameters('location')]"
           },
           "storageAccountName": {
-            "value": "[variables('storageAccountnames').sql]"
+            "value": "[variables('storageAccountNames').sql]"
           },
           "diagAccountName": {
-            "value": "[variables('storageAccountnames').diag]"
+            "value": "[variables('storageAccountNames').diag]"
           },
           "availabilitySet": {
             "value": "[variables('ids').sqlAvailabilitySetName]"
@@ -1163,13 +1163,13 @@
             "value": "[variables('vmSettings').vmContainerName]"
           },
           "webStorageAccountName": {
-            "value": "[variables('storageAccountnames').web]"
+            "value": "[variables('storageAccountNames').web]"
           },
           "appStorageAccountName": {
-            "value": "[variables('storageAccountnames').app]"
+            "value": "[variables('storageAccountNames').app]"
           },
           "diagStorageAccountName": {
-            "value": "[variables('storageAccountnames').diag]"
+            "value": "[variables('storageAccountNames').diag]"
           },
           "spPreparationModulesURL": {
             "value": "[variables('configuration').spPreparationModulesURL]"
