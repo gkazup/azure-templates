@@ -307,6 +307,10 @@
       "sqlAOPrepareFunction": "PrepareAlwaysOnSqlServer.ps1\\PrepareAlwaysOnSqlServer",
       "sqlAOConfigurationModulesURL": "[concat(variables('assetLocation'),'/ConfigureAlwaysOnSqlServer.ps1.zip')]",
       "sqlAOConfigurationFunction": "ConfigureAlwaysOnSqlServer.ps1\\ConfigureAlwaysOnSqlServer",
+      "fsConfigurationModulesURL": "[concat(variables('assetLocation'),'/ConfigureFileShare.ps1.zip')]",
+      "fsConfigurationFunction": "ConfigureFileShare.ps1\\ConfigureFileShare",
+      "fsPreparationModulesURL": "[concat(variables('assetLocation'),'/PrepareFileShare.ps1.zip')]",
+      "fsPreparationFunction": "PrepareFileShare.ps1\\PrepareFileShare",
       "prepareClusterModulesURL": "[concat(variables('assetLocation'),'/PrepareFailoverCluster.ps1.zip')]",
       "prepareClusterConfigurationFunction": "PrepareFailoverCluster.ps1\\PrepareFailoverCluster",
       "configureClusterModulesURL": "[concat(variables('assetLocation'),'/ConfigureFailoverCluster.ps1.zip')]",
@@ -327,6 +331,7 @@
       "configuringSharepointUrl": "[concat(parameters('baseUrl'),'/nested/configuringSharePoint.json')]",
       "creatingStorageAccounts": "[concat(parameters('baseUrl'),'/nested/creatingStorageAccounts.json')]",
       "provisioningSQLVMsURL": "[concat(parameters('baseUrl'),'/nested/provisioningSQLVMs.json')]",
+      "provisioningFSVMsURL": "[concat(parameters('baseUrl'),'/nested/provisioningFSVMs.json')]",
       "vnetSetupURL": "[concat(parameters('baseUrl'),'/nested/vnet-new.json')]",
       "setupLBsUrl": "[concat(parameters('baseUrl'),'/nested/setupLBs.json')]",
       "creatingNicsUrl": "[concat(parameters('baseUrl'),'/nested/creatingNICS.json')]"
@@ -1272,6 +1277,76 @@
           },
           "spSiteTemplateName": {
             "value": "[variables('spSiteTemplateName')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "ProvisioningFSVirtualMachines",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "dependsOn": [
+        "Microsoft.Resources/deployments/CreatingStorageAccounts",
+        "Microsoft.Resources/deployments/CreatingNetworkInterfaces",
+        "Microsoft.Resources/deployments/CreatingAvailabilitySets"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('configuration').provisioningFSVMsURL]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "fsVMName": {
+            "value": "[variables('vmSettings').fsVMName]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "storageAccountName": {
+            "value": "[variables('storageAccountNames').fs]"
+          },
+          "diagAccountName": {
+            "value": "[variables('storageAccountNames').diag]"
+          },
+          "availabilitySet": {
+            "value": "[variables('ids').fsAvailabilitySetName]"
+          },
+          "fsVMSize": {
+            "value": "[variables('fsVMSize')]"
+          },
+          "adminUsername": {
+            "value": "[parameters('adminUsername')]"
+          },
+          "adminPassword": {
+            "value": "[parameters('adminPassword')]"
+          },
+          "windowsImagePublisher": {
+            "value": "[variables('vmSettings').windowsImagePublisher]"
+          },
+          "windowsImageOffer": {
+            "value": "[variables('vmSettings').windowsImageOffer]"
+          },
+          "windowsImageSKU": {
+            "value": "[variables('vmSettings').windowsImageSKU]"
+          },
+          "vmContainerName": {
+            "value": "[variables('vmSettings').vmContainerName]"
+          },
+          "domainName": {
+            "value": "[parameters('domainName')]"
+          },
+          "sharePath": {
+            "value": "[variables('sharePath')]"
+          },
+          "fsPreparationModulesURL": {
+            "value": "[variables('configuration').fsPreparationModulesURL]"
+          },
+          "fsPreparationFunction": {
+            "value": "[variables('configuration').fsPreparationFunction]"
+          },
+          "DNSServer": {
+            "value": "[variables('adPDCNICIPAddress')]"
           }
         }
       }
