@@ -4,7 +4,7 @@ This template will create the following resources:
 
 +	A Virtual Network
 +	Six Subnets (Gateway, File Server, Front-end, SharePoint, SQL, AD)
-+	Five  Storage Accounts (one is used for Active Directory VMs, one for SQL Server VMs, one for SharePoint VMs, one for the File Server VMs and one for VM diagnostic info)
++	Six Storage Accounts (one is used for Active Directory VMs, one for SQL Server VMs, two for SharePoint VMs, one for the File Server VMs and one for VM diagnostic info)
 +	Two VMs as Domain Controllers for a new Forest and Domain
 +	Two VMs in a Windows Server Cluster running SQL Server with an availability group, + One additional VM acting as a File Share Witness for the Cluster
 +	Two SharePoint App Servers
@@ -58,15 +58,4 @@ This template will create the following resources:
 |sqlwVMName|The name of the File Share Witness|
 |spwebVMName|The Prefix of the SharePoint Web Server VMs|
 |spappVMName|The Prefix of the SharePoint App Server VMs|
-|windowsImagePublisher|The name of the pulisher of the AD and Witness Image|
-|windowsImageOffer|The Offer Name for the Image used by AD and Witness VMs|
-|windowsImageSKU|The Image SKU for the AD and Witness Image|
-|sqlImagePublisher|The name of the pulisher of the SQL Image|
-|sqlImageOffer|The Offer Name for the Image used by SQL|
-|sqlImageSKU|The Image SKU for the SQL Image|
-|spImagePublisher|The name of the pulisher of the SharePoint Image|
-|spImageOffer|The Offer Name for the Image used by SharePoint|
-|spImageSKU|The Image SKU for the SharePoint Image|
-|windowsDiskSize|The size of the VHD allocated for AD and Witness VMs Data Disk|
-|sqlDiskSize|The size of the the VHD allocated for SQL VMs Data and Log Disks|
-|spDiskSize|The size of the VHD allocated for the SP VMs Data Disk|
+|fsVMName|The Prefix of the File Server VMs|
