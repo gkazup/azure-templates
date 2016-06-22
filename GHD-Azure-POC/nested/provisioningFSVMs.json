@@ -44,12 +44,6 @@
     "sharePath": {
       "type": "string"
     },
-    "fsPreparationModulesURL": {
-      "type": "string"
-    },
-    "fsPreparationFunction": {
-      "type": "string"
-    },
     "fsConfigurationModulesURL": {
       "type": "string"
     },
@@ -127,39 +121,11 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('fsVMName'), copyindex(1),'/PrepareFSServer')]",
-      "apiVersion": "2015-06-15",
-      "location": "[parameters('location')]",
-      "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', parameters('fsVMName'),copyindex(1))]"
-      ],
-      "copy": {
-        "name": "fsPrepareLoop",
-        "count": 2
-      },
-      "properties": {
-        "publisher": "Microsoft.Powershell",
-        "type": "DSC",
-        "typeHandlerVersion": "2.13",
-        "autoUpgradeMinorVersion": false,
-        "settings": {
-          "modulesURL": "[parameters('fsPreparationModulesURL')]",
-          "wmfVersion": "4.0",
-          "configurationFunction": "[parameters('fsPreparationFunction')]",
-          "properties": {
-            "DNSServer": "[parameters('DNSServer')]",
-            "SharePath": "[concat(parameters('sharePath'),copyindex(1))]"
-          }
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('fsVMName'), copyindex(1),'/ConfigureFSServer')]",
       "apiVersion": "2015-06-15",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', parameters('fsVMName'),copyindex(1),'/extensions/PrepareFSServer')]"
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('fsVMName'),copyindex(1))]",
       ],
       "copy": {
         "name": "fsConfigLoop",
@@ -175,6 +141,8 @@
           "wmfVersion": "4.0",
           "configurationFunction": "[parameters('fsConfigurationFunction')]",
           "properties": {
+            "DNSServer": "[parameters('DNSServer')]",
+            "SharePath": "[concat(parameters('sharePath'),copyindex(1))]",
             "domainName": "[parameters('domainName')]",
             "adminCreds": {
               "userName": "[parameters('adminUserName')]",

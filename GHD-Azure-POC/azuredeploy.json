@@ -311,8 +311,6 @@
       "sqlAOConfigurationFunction": "ConfigureAlwaysOnSqlServer.ps1\\ConfigureAlwaysOnSqlServer",
       "fsConfigurationModulesURL": "[concat(variables('assetLocation'),'/ConfigureFileShare.ps1.zip')]",
       "fsConfigurationFunction": "ConfigureFileShare.ps1\\ConfigureFileShare",
-      "fsPreparationModulesURL": "[concat(variables('assetLocation'),'/PrepareFileShare.ps1.zip')]",
-      "fsPreparationFunction": "PrepareFileShare.ps1\\PrepareFileShare",
       "prepareClusterModulesURL": "[concat(variables('assetLocation'),'/PrepareFailoverCluster.ps1.zip')]",
       "prepareClusterConfigurationFunction": "PrepareFailoverCluster.ps1\\PrepareFailoverCluster",
       "configureClusterModulesURL": "[concat(variables('assetLocation'),'/ConfigureFailoverCluster.ps1.zip')]",
@@ -1342,12 +1340,6 @@
           },
           "sharePath": {
             "value": "[variables('fsSharePath')]"
-          },
-          "fsPreparationModulesURL": {
-            "value": "[variables('configuration').fsPreparationModulesURL]"
-          },
-          "fsPreparationFunction": {
-            "value": "[variables('configuration').fsPreparationFunction]"
           },
           "fsConfigurationModulesURL": {
             "value": "[variables('configuration').fsConfigurationModulesURL]"
