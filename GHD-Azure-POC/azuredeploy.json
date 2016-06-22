@@ -1372,11 +1372,11 @@
           "sharePath": {
             "value": "[variables('fsSharePath')]"
           },
-          "fswConfigurationModulesURL": {
-            "value": "[variables('configuration').fswConfigurationModulesURL]"
+          "fsConfigurationModulesURL": {
+            "value": "[variables('configuration').fsConfigurationModulesURL]"
           },
-          "fswConfigurationFunction": {
-            "value": "[variables('configuration').fswConfigurationFunction]"
+          "fsConfigurationFunction": {
+            "value": "[variables('configuration').fsConfigurationFunction]"
           },
           "DNSServer": {
             "value": "[variables('adPDCNICIPAddress')]"
