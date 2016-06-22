@@ -10,7 +10,7 @@ This template will create the following resources:
 +	Two SharePoint App Servers
 +	Two SharePoint Web Servers
 +	Two File Servers in HA configuration using DFSR
-+	One Expressroute Gateway, one Point-to-Site VPN Gateway
++	One Expressroute Gateway, one VPN Gateway
 +	Three external and one internal load balancers
 +	A NAT Rule to allow RDP to one VM which can be used as a jumpbox, a load balancer rule for ILB for a SQL Listener, a load balancer rule for HTTP traffic on port 80 for SharePoint and a NAT rule for SharePoint Central Admin access
 +	Three public IP addresses, one for RDP access, one for the SharePoint site and one for SharePoint Central Admin.
