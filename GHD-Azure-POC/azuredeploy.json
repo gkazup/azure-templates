@@ -1438,7 +1438,7 @@
             "value": "[concat(variables('prefix'),'-vpnconnection')]"
           },
           "sharedKey": {
-            "value": "long-securestring-comes-here"
+            "value": "LongSecurestringComesHere"
           }
         }
       }
