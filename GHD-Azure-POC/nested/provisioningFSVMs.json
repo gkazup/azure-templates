@@ -37,21 +37,6 @@
     },
     "vmContainerName": {
       "type": "string"
-    },
-    "domainName": {
-      "type": "string"
-    },
-    "sharePath": {
-      "type": "string"
-    },
-    "fsConfigurationModulesURL": {
-      "type": "string"
-    },
-    "fsConfigurationFunction": {
-      "type": "string"
-    },
-    "DNSServer": {
-      "type": "string"
     }
   },
   "resources": [
@@ -115,45 +100,6 @@
           "bootDiagnostics": {
             "enabled": "true",
             "storageUri": "[concat('https://',parameters('diagAccountName'),'.blob.core.windows.net')]"
-          }
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('fsVMName'), copyindex(1),'/ConfigureFSServer')]",
-      "apiVersion": "2015-06-15",
-      "location": "[parameters('location')]",
-      "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', parameters('fsVMName'),copyindex(1))]",
-      ],
-      "copy": {
-        "name": "fsConfigLoop",
-        "count": 2
-      },
-      "properties": {
-        "publisher": "Microsoft.Powershell",
-        "type": "DSC",
-        "typeHandlerVersion": "2.13",
-        "autoUpgradeMinorVersion": false,
-        "settings": {
-          "modulesURL": "[parameters('fsConfigurationModulesURL')]",
-          "wmfVersion": "4.0",
-          "configurationFunction": "[parameters('fsConfigurationFunction')]",
-          "properties": {
-            "DNSServer": "[parameters('DNSServer')]",
-            "SharePath": "[concat(parameters('sharePath'),copyindex(1))]",
-            "domainName": "[parameters('domainName')]",
-            "adminCreds": {
-              "userName": "[parameters('adminUserName')]",
-              "password": "privateSettingsRef:adminPassword"
-            }
-
-          }
-        },
-        "protectedSettings": {
-          "items": {
-            "adminPassword": "[parameters('adminPassword')]"
           }
         }
       }

@@ -332,6 +332,7 @@
       "creatingStorageAccounts": "[concat(parameters('baseUrl'),'/nested/creatingStorageAccounts.json')]",
       "provisioningSQLVMsURL": "[concat(parameters('baseUrl'),'/nested/provisioningSQLVMs.json')]",
       "provisioningFSVMsURL": "[concat(parameters('baseUrl'),'/nested/provisioningFSVMs.json')]",
+      "configuringFSVirtualMachinesUrl": "[concat(parameters('baseUrl'),'/nested/configuringFSVMs.json')]",
       "vnetSetupURL": "[concat(parameters('baseUrl'),'/nested/vnet-new.json')]",
       "expressrouteSetupURL": "[concat(parameters('baseUrl'),'/nested/creatingExpressroute.json')]",
       "vpnSetupURL": "[concat(parameters('baseUrl'),'/nested/creatingVPN.json')]",
@@ -1335,17 +1336,47 @@
           "vmContainerName": {
             "value": "[variables('vmSettings').vmContainerName]"
           },
+        }
+      }
+    },
+    {
+      "name": "ConfiguringFSVirtualMachines",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "dependsOn": [
+        "Microsoft.Resources/deployments/UpdatingDNSwithBackupADVM",
+        "Microsoft.Resources/deployments/ProvisioningFSVirtualMachines"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('configuration').configuringFSVirtualMachinesUrl]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "fsVMName": {
+            "value": "[variables('vmSettings').fsVMName]"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "adminUsername": {
+            "value": "[parameters('adminUsername')]"
+          },
+          "adminPassword": {
+            "value": "[parameters('adminPassword')]"
+          },
           "domainName": {
             "value": "[parameters('domainName')]"
           },
           "sharePath": {
             "value": "[variables('fsSharePath')]"
           },
-          "fsConfigurationModulesURL": {
-            "value": "[variables('configuration').fsConfigurationModulesURL]"
+          "fswConfigurationModulesURL": {
+            "value": "[variables('configuration').fswConfigurationModulesURL]"
           },
-          "fsConfigurationFunction": {
-            "value": "[variables('configuration').fsConfigurationFunction]"
+          "fswConfigurationFunction": {
+            "value": "[variables('configuration').fswConfigurationFunction]"
           },
           "DNSServer": {
             "value": "[variables('adPDCNICIPAddress')]"
