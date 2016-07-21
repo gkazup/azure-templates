@@ -21,7 +21,7 @@
       "properties": {
         "securityRules": [
           {
-            "name": "Allow Inbound All",
+            "name": "Allow_Inbound_All",
             "properties": {
               "description": "Allow all inbound",
               "protocol": "Tcp",
@@ -35,7 +35,7 @@
             }
           },
           {
-            "name": "Allow Outbound All",
+            "name": "Allow_Outbound_All",
             "properties": {
               "description": "Allow all outbound",
               "protocol": "Tcp",
@@ -59,7 +59,7 @@
       "properties": {
         "securityRules": [
           {
-            "name": "Allow Inbound All",
+            "name": "Allow_Inbound_All",
             "properties": {
               "description": "Allow all inbound",
               "protocol": "Tcp",
@@ -73,7 +73,7 @@
             }
           },
           {
-            "name": "Allow Outbound All",
+            "name": "Allow_Outbound_All",
             "properties": {
               "description": "Allow all outbound",
               "protocol": "Tcp",
@@ -97,7 +97,7 @@
       "properties": {
         "securityRules": [
           {
-            "name": "Allow Inbound All",
+            "name": "Allow_Inbound_All",
             "properties": {
               "description": "Allow all inbound",
               "protocol": "Tcp",
@@ -111,7 +111,7 @@
             }
           },
           {
-            "name": "Allow Outbound All",
+            "name": "Allow_Outbound_All",
             "properties": {
               "description": "Allow all outbound",
               "protocol": "Tcp",
@@ -135,7 +135,7 @@
       "properties": {
         "securityRules": [
           {
-            "name": "Allow Inbound All",
+            "name": "Allow_Inbound_All",
             "properties": {
               "description": "Allow all inbound",
               "protocol": "Tcp",
@@ -149,7 +149,7 @@
             }
           },
           {
-            "name": "Allow Outbound All",
+            "name": "Allow_Outbound_All",
             "properties": {
               "description": "Allow all outbound",
               "protocol": "Tcp",
@@ -173,7 +173,7 @@
       "properties": {
         "securityRules": [
           {
-            "name": "Allow Inbound All",
+            "name": "Allow_Inbound_All",
             "properties": {
               "description": "Allow all inbound",
               "protocol": "Tcp",
@@ -187,7 +187,7 @@
             }
           },
           {
-            "name": "Allow Outbound All",
+            "name": "Allow_Outbound_All",
             "properties": {
               "description": "Allow all outbound",
               "protocol": "Tcp",
