@@ -156,31 +156,46 @@
       {
         "name": "[variables('subnetNames').adSubnetName]",
         "properties": {
-          "addressPrefix": "10.0.0.0/24"
+          "addressPrefix": "10.0.0.0/24",
+          "networkSecurityGroup": {
+            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(variables('subnetNames').adSubnetName,'-nsg'))]"
+          }
         }
       },
       {
         "name": "[variables('subnetNames').fsSubnetname]",
         "properties": {
-          "addressPrefix": "10.0.4.0/24"
+          "addressPrefix": "10.0.4.0/24",
+          "networkSecurityGroup": {
+            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(variables('subnetNames').fsSubnetName,'-nsg'))]"
+          }
         }
       },
       {
         "name": "[variables('subnetNames').sqlSubnetName]",
         "properties": {
-          "addressPrefix": "10.0.1.0/24"
+          "addressPrefix": "10.0.1.0/24",
+          "networkSecurityGroup": {
+            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(variables('subnetNames').sqlSubnetName,'-nsg'))]"
+          }
         }
       },
       {
         "name": "[variables('subnetNames').spWebSubnetName]",
         "properties": {
-          "addressPrefix": "10.0.2.0/24"
+          "addressPrefix": "10.0.2.0/24",
+          "networkSecurityGroup": {
+            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(variables('subnetNames').spWebSubnetName,'-nsg'))]"
+          }
         }
       },
       {
         "name": "[variables('subnetNames').spAppSubnetName]",
         "properties": {
-          "addressPrefix": "10.0.3.0/24"
+          "addressPrefix": "10.0.3.0/24",
+          "networkSecurityGroup": {
+            "id": "[resourceId('Microsoft.Network/networkSecurityGroups', concat(variables('subnetNames').spAppSubnetName,'-nsg'))]"
+          }
         }
       }
     ],
@@ -251,6 +266,7 @@
     "sharePath": "[concat(variables('prefix'),'-fsw')]",
     "fsSharePath": "[concat(variables('prefix'),'-fs')]",
     "clusterName": "[concat(variables('prefix'),'-fc')]",
+    "backupVaultName": "[concat(resourcegroup().name,'-backupvault')]",
     "adPDCNicName": "[concat(variables('vmSettings').adPDCVMName,'-nic')]",
     "adBDCNicName": "[concat(variables('vmSettings').adBDCVMName,'-nic')]",
     "sqlwNicName": "[concat(variables('vmSettings').sqlwVMName,'-nic')]",
@@ -333,11 +349,13 @@
       "provisioningSQLVMsURL": "[concat(parameters('baseUrl'),'/nested/provisioningSQLVMs.json')]",
       "provisioningFSVMsURL": "[concat(parameters('baseUrl'),'/nested/provisioningFSVMs.json')]",
       "configuringFSVirtualMachinesUrl": "[concat(parameters('baseUrl'),'/nested/configuringFSVMs.json')]",
-      "vnetSetupURL": "[concat(parameters('baseUrl'),'/nested/vnet-new.json')]",
+      "vnetSetupURL": "[concat(parameters('baseUrl'),'/nested/creatingVNET.json')]",
+      "nsgSetupURL": "[concat(parameters('baseUrl'),'/nested/creatingNSGs.json')]",
       "expressrouteSetupURL": "[concat(parameters('baseUrl'),'/nested/creatingExpressroute.json')]",
       "vpnSetupURL": "[concat(parameters('baseUrl'),'/nested/creatingVPN.json')]",
       "setupLBsUrl": "[concat(parameters('baseUrl'),'/nested/setupLBs.json')]",
-      "creatingNicsUrl": "[concat(parameters('baseUrl'),'/nested/creatingNICS.json')]"
+      "creatingNicsUrl": "[concat(parameters('baseUrl'),'/nested/creatingNICS.json')]",
+      "creatingBackupVaultURL": "[concat(parameters('baseUrl'),'/nested/creatingBackupVault.json')]"
     },
     "assetLocation": "[concat(parameters('baseUrl'),'/scripts')]"
   },
@@ -486,9 +504,32 @@
       }
     },
     {
+      "name": "CreatingNSGs",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('configuration').nsgSetupURL]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "subnetNames": {
+            "value": "[variables('subnetNames')]"
+          }
+        }
+      }
+    },
+    {
       "name": "CreatingVirtualNetwork",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
+      "dependsOn": [
+        "Microsoft.Resources/deployments/CreatingNSGs"
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -1335,7 +1376,7 @@
           },
           "vmContainerName": {
             "value": "[variables('vmSettings').vmContainerName]"
-          },
+          }
         }
       }
     },
@@ -1462,6 +1503,41 @@
           },
           "sharedKey": {
             "value": "LongSecurestringComesHere"
+          }
+        }
+      }
+    },
+    {
+      "name": "CreatingBackupVault",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('configuration').creatingBackupVaultURL]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "skuTier": {
+            "value": "Standard"
+          },
+          "vaultName": {
+            "value": "[variables('backupVaultName')]"
+          },
+          "policyName": {
+            "value": "weeklyschedule"
+          },
+          "scheduleRunDays": {
+            "value": ["Monday", "Wednesday","Friday"]
+          },
+          "scheduleRunTimes": {
+            "value": ["21:00"]
+          },
+          "weeklyRetentionDurationCount": {
+            "value": 12
           }
         }
       }
