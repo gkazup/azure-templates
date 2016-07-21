@@ -67,7 +67,7 @@
           "scheduleRunFrequency": "Weekly",
           "scheduleRunDays": "[parameters('scheduleRunDays')]",
           "scheduleRunTimes": "[parameters('scheduleRunTimes')]",
-          "scheduleRunTimesNew": [ ],
+          "scheduleRunTimesNew": [],
           "schedulePolicyType": "SimpleSchedulePolicy"
         },
         "retentionPolicy": {
@@ -75,7 +75,7 @@
           "weeklySchedule": {
             "daysOfTheWeek": "[parameters('scheduleRunDays')]",
             "retentionTimes": "[parameters('scheduleRunTimes')]",
-            "retentionTimesNew": [ ],
+            "retentionTimesNew": [],
             "retentionDuration": {
               "count": "[parameters('weeklyRetentionDurationCount')]",
               "durationType": "Weeks"

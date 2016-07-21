@@ -1534,7 +1534,7 @@
             "value": ["Monday", "Wednesday","Friday"]
           },
           "scheduleRunTimes": {
-            "value": ["21:00"]
+            "value": ["2016-07-21T11:00:00.000Z"]
           },
           "weeklyRetentionDurationCount": {
             "value": 12
