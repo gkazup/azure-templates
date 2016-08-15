@@ -20,49 +20,16 @@
     "adRDPNATRuleID": {
       "type": "string"
     },
-    "adBDCNicName": {
-      "type": "string"
-    },
-    "adBDCNICIPAddress": {
-      "type": "string"
-    },
-    "sqlVMName": {
-      "type": "string"
-    },
-    "sqlSubnetRef": {
-      "type": "string"
-    },
-    "sqlBEAddressPoolID": {
-      "type": "string"
-    },
-    "spwebVMName": {
-      "type": "string"
-    },
-    "spWebSubnetRef": {
-      "type": "string"
-    },
-    "spWebBEAddressPoolID": {
-      "type": "string"
-    },
-    "spappVMName": {
-      "type": "string"
-    },
-    "spAppSubnetRef": {
-      "type": "string"
-    },
-    "spCABEAddressPoolID": {
-      "type": "string"
-    },
-    "spCANATRuleID": {
-      "type": "string"
-    },
-    "sqlwNicName": {
-      "type": "string"
-    },
     "fsVMName": {
       "type": "string"
     },
     "fsSubnetRef": {
+      "type": "string"
+    },
+    "adfsVMName": {
+      "type": "string"
+    },
+    "adfsSubnetRef": {
       "type": "string"
     }
   },
@@ -98,55 +65,7 @@
       }
     },
     {
-      "name": "[parameters('adBDCNicName')]",
-      "type": "Microsoft.Network/networkInterfaces",
-      "location": "[parameters('location')]",
-      "apiVersion": "2015-06-15",
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
-            "properties": {
-              "privateIPAllocationMethod": "Static",
-              "privateIPAddress": "[parameters('adBDCNICIPAddress')]",
-              "subnet": {
-                "id": "[parameters('adSubnetRef')]"
-              }
-            }
-          }
-        ]
-      }
-    },
-    {
-      "name": "[concat(parameters('sqlVMName'), copyindex(1),'-nic')]",
-      "type": "Microsoft.Network/networkInterfaces",
-      "location": "[parameters('location')]",
-      "apiVersion": "2015-06-15",
-      "copy": {
-        "name": "sqlnicLoop",
-        "count": 2
-      },
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
-            "properties": {
-              "privateIPAllocationMethod": "Dynamic",
-              "subnet": {
-                "id": "[parameters('sqlSubnetRef')]"
-              },
-              "loadBalancerBackendAddressPools": [
-                {
-                  "id": "[parameters('sqlBEAddressPoolID')]"
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "name": "[parameters('sqlwNicName')]",
+      "name": "[concat(parameters('adfsVMName'),'-nic')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[parameters('location')]",
       "apiVersion": "2015-06-15",
@@ -157,83 +76,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[parameters('sqlSubnetRef')]"
-              }
-            }
-          }
-        ]
-      }
-    },
-    {
-      "name": "[concat(parameters('spwebVMName'), copyindex(1),'-nic')]",
-      "type": "Microsoft.Network/networkInterfaces",
-      "location": "[parameters('location')]",
-      "apiVersion": "2015-06-15",
-      "copy": {
-        "name": "spWebnicLoop",
-        "count": 2
-      },
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
-            "properties": {
-              "privateIPAllocationMethod": "Dynamic",
-              "subnet": {
-                "id": "[parameters('spWebSubnetRef')]"
-              },
-              "loadBalancerBackendAddressPools": [
-                {
-                  "id": "[parameters('spWebBEAddressPoolID')]"
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "name": "[concat(parameters('spappVMName'),'1-nic')]",
-      "type": "Microsoft.Network/networkInterfaces",
-      "location": "[parameters('location')]",
-      "apiVersion": "2015-06-15",
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
-            "properties": {
-              "privateIPAllocationMethod": "Dynamic",
-              "subnet": {
-                "id": "[parameters('spAppSubnetRef')]"
-              },
-              "loadBalancerBackendAddressPools": [
-                {
-                  "id": "[parameters('spCABEAddressPoolID')]"
-                }
-              ],
-              "loadBalancerInboundNatRules": [
-                {
-                  "id": "[parameters('spCANATRuleID')]"
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "name": "[concat(parameters('spappVMName'),'2-nic')]",
-      "type": "Microsoft.Network/networkInterfaces",
-      "location": "[parameters('location')]",
-      "apiVersion": "2015-06-15",
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
-            "properties": {
-              "privateIPAllocationMethod": "Dynamic",
-              "subnet": {
-                "id": "[parameters('spAppSubnetRef')]"
+                "id": "[parameters('adfsSubnetRef')]"
               }
             }
           }

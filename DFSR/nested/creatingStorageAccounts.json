@@ -27,7 +27,7 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[parameters('storageAccountNames').ad]",
+      "name": "[parameters('storageAccountNames').dc]",
       "apiVersion": "[variables('storageApiVersion')]",
       "location": "[parameters('location')]",
       "properties": {
@@ -36,25 +36,7 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[parameters('storageAccountNames').sql]",
-      "apiVersion": "[variables('storageApiVersion')]",
-      "location": "[parameters('location')]",
-      "properties": {
-        "accountType": "[parameters('storageAccountType')]"
-      }
-    },
-    {
-      "type": "Microsoft.Storage/storageAccounts",
-      "name": "[parameters('storageAccountNames').web]",
-      "apiVersion": "[variables('storageApiVersion')]",
-      "location": "[parameters('location')]",
-      "properties": {
-        "accountType": "[parameters('storageAccountType')]"
-      }
-    },
-    {
-      "type": "Microsoft.Storage/storageAccounts",
-      "name": "[parameters('storageAccountNames').app]",
+      "name": "[parameters('storageAccountNames').adfs]",
       "apiVersion": "[variables('storageApiVersion')]",
       "location": "[parameters('location')]",
       "properties": {

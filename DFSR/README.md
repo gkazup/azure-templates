@@ -1,24 +1,23 @@
-# Create a High Availabilty DFSR environment using the Powershell DSC Extension
+# Create a DFSR environment using the Powershell DSC Extension
 
 This template will create the following resources:
 
 +	A Virtual Network
-+	Subnets (Gateway, File Server, AD)
-+	Storage Accounts (one is used for Active Directory VMs, one for the File Server VMs and one for VM diagnostic info)
-+	Two VMs as Domain Controllers for a new Forest and Domain
++	Subnets (Gateway, File Server, Name Server, AD)
++	Storage Accounts (one is used for Active Directory VMs, one for DFSR nameserver, one for the File Server VMs and one for VM diagnostic info)
++	One VM as Domain Controller for a new Forest and Domain
++	One DFSR Name Server
 +	Two File Servers in HA configuration using DFSR
-+	One external and one internal load balancers
-+	A NAT Rule to allow RDP to the DCs
-+	One public IP address for RDP access, one for the SharePoint site and one for SharePoint Central Admin.
-+	Availability Sets: one for the AD VMs, one for the DFSR Servers 
++	A NAT Rule to allow RDP to the DC
++	One public IP address for RDP access
++	Availability Sets: one for the DFSR Servers 
 
 ## Notes
 
-+	The default settings for storage are to deploy using **premium storage**, the AD witness and SP VMs use a P10 Disk and the SQL VMs use two P30 disks each, these sizes can be changed by changing the relevant variables. In addition there is a P10 Disk used for each VMs OS Disk.
++	The default settings for storage are to deploy using **local replicated storage**
 
-+ 	The images used to create this deployment are
-	+ 	AD - Latest Windows Server 2012 R2 Image
-	+ 	File Servers - Latest Windows Server 2012 R2 Image
++ 	The image used to create this deployment is
+	+ 	Latest Windows Server 2012 R2 Image
 
 + 	Once deployed access can be gained at the following addresses:
 
@@ -37,6 +36,6 @@ This template will create the following resources:
 |Name|Description|
 |:---|:---------------------|
 |virtualNetworkName|Name of the Virtual Network|
-|adPDCVMName|The name of the Primary Domain Controller|
-|adBDCVMName|The name of the Backup\Second Domain Controller|
+|adPDCVMName|The name of the Domain Controller|
+|ADFSVMName|The name of the ADFS Name server|
 |fsVMName|The Prefix of the File Server VMs|
