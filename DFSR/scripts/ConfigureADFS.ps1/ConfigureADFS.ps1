@@ -22,7 +22,7 @@ configuration ConfigureADFS
         [Int]$RetryIntervalSec=30
     )
 
-    Import-DscResource -ModuleName  xSmbShare, cDisk, xDisk, xNetworking, xComputerManagement, xActiveDirectory
+    Import-DscResource -ModuleName  cDisk, xDisk, xNetworking, xComputerManagement, xActiveDirectory
 
     $Interface=Get-NetAdapter|Where Name -Like "Ethernet*"|Select-Object -First 1
     $InterfaceAlias=$($Interface.Name)
@@ -54,28 +54,11 @@ configuration ConfigureADFS
             DependsOn = "[cDiskNoRestart]DataDisk"
         } 
 
-        File FSWFolder
-        {
-            DestinationPath = "F:\$($SharePath.ToUpperInvariant())"
-            Type = "Directory"
-            Ensure = "Present"
-            DependsOn = "[cDiskNoRestart]DataDisk"
-        }
-
-        xSmbShare FSWShare
-        {
-            Name = $SharePath.ToUpperInvariant()
-            Path = "F:\$($SharePath.ToUpperInvariant())"
-            FullAccess = "BUILTIN\Administrators"
-            Ensure = "Present"
-            DependsOn = "[File]FSWFolder"
-        }
         xDnsServerAddress DnsServerAddress
         {
             Address        = $DNSServer
             InterfaceAlias = $InterfaceAlias
             AddressFamily  = 'IPv4'
-            DependsOn="[xSmbShare]FSWShare"
         }
 
         xWaitForADDomain DscForestWait
@@ -86,6 +69,7 @@ configuration ConfigureADFS
             RetryIntervalSec = $RetryIntervalSec
             DependsOn = "[xDnsServerAddress]DnsServerAddress"
         }
+
         xComputer DomainJoin
         {
             Name = $env:COMPUTERNAME
