@@ -26,10 +26,10 @@
     "fsSubnetRef": {
       "type": "string"
     },
-    "adfsVMName": {
+    "dfsrVMName": {
       "type": "string"
     },
-    "adfsSubnetRef": {
+    "dfsrSubnetRef": {
       "type": "string"
     }
   },
@@ -65,7 +65,7 @@
       }
     },
     {
-      "name": "[concat(parameters('adfsVMName'),'-nic')]",
+      "name": "[concat(parameters('dfsrVMName'),'-nic')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[parameters('location')]",
       "apiVersion": "2015-06-15",
@@ -76,7 +76,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[parameters('adfsSubnetRef')]"
+                "id": "[parameters('dfsrSubnetRef')]"
               }
             }
           }

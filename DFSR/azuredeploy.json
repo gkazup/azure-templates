@@ -47,7 +47,7 @@
       "metadata": {
         "description": "The DNS Prefix for the Public IP Address"
       },
-      "defaultValue": "adfs01"
+      "defaultValue": "dfsr01"
     },
     "baseUrl": {
       "type": "string",
@@ -63,21 +63,21 @@
     "storageAccountNamePrefix": "zupinet",
     "storageAccountNames": {
       "dc": "[concat(variables('storageAccountNamePrefix'), 'dc', substring(uniquestring(resourceGroup().id), 0, 4))]",
-      "adfs": "[concat(variables('storageAccountNamePrefix'), 'adfs', substring(uniquestring(resourceGroup().id), 0, 4))]",
+      "dfsr": "[concat(variables('storageAccountNamePrefix'), 'dfsr', substring(uniquestring(resourceGroup().id), 0, 4))]",
       "fs": "[concat(variables('storageAccountNamePrefix'), 'fs', substring(uniquestring(resourceGroup().id), 0, 4))]",
       "diag": "[concat(variables('storageAccountNamePrefix'), 'diag', substring(uniquestring(resourceGroup().id), 0, 4))]"
     },
 
     "dcVMSize": "Standard_DS1",
-    "adfsVMSize": "Standard_DS1",
+    "dfsrVMSize": "Standard_DS1",
     "fsVMSize": "Standard_DS1",
 
-    "virtualNetworkName": "adfs-test-vnet-01",
+    "virtualNetworkName": "dfsr-test-vnet-01",
     "virtualNetworkAddressRange": "10.0.0.0/16",
     "subnetNames": {
       "GatewaySubnetName": "GatewaySubnet",
       "dcSubnetName": "internal-dc-subnet",
-      "adfsSubnetName": "internal-adfs-subnet",
+      "dfsrSubnetName": "internal-dfsr-subnet",
       "fsSubnetname": "internal-fs-subnet"
     },
     "subnets": [
@@ -100,7 +100,7 @@
         }
       },
       {
-        "name": "[variables('subnetNames').adfsSubnetName]",
+        "name": "[variables('subnetNames').dfsrSubnetName]",
         "properties": {
           "addressPrefix": "10.0.1.0/24"
         }
@@ -123,7 +123,7 @@
       "noOffsRoleVMs": 2,
       "vmContainerName": "vhds",
       "adPDCVMName": "temp-dc-001",
-      "adfsVMName": "temp-adfs-001",
+      "dfsrVMName": "temp-dfsr-001",
       "fsVMName": "temp-fs-00",
       "windowsImagePublisher": "MicrosoftWindowsServer",
       "windowsImageOffer": "WindowsServer",
@@ -131,7 +131,7 @@
       "rdpPort": 3389,
       "windowsDiskSize": 128,
       "fsDiskSize": 1000,
-      "adfsDiskSize": 128
+      "dfsrDiskSize": 128
     },
 
     "prefix": "[tolower(trim(subString(concat(parameters('dnsPrefix'),'           '),0,10)))]",
@@ -140,7 +140,7 @@
     "adPDCNicName": "[concat(variables('vmSettings').adPDCVMName,'-nic')]",
     "VnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
     "dcSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').dcSubnetName)]",
-    "adfsSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').adfsSubnetName)]",
+    "dfsrSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').dfsrSubnetName)]",
     "fsSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').fsSubnetName)]",
 
     "ids": {
@@ -168,10 +168,10 @@
       "configuringFSVirtualMachinesUrl": "[concat(parameters('baseUrl'),'/nested/configuringFSVMs.json')]",
       "fsConfigurationModulesURL": "[concat(variables('assetLocation'),'/ConfigureFileShare.ps1.zip')]",
       "fsConfigurationFunction": "ConfigureFileShare.ps1\\ConfigureFileShare",
-      "provisioningADFSVMUrl": "[concat(parameters('baseUrl'),'/nested/provisioningADFSVM.json')]",
-      "configuringADFSVMUrl": "[concat(parameters('baseUrl'),'/nested/configuringADFSVM.json')]",
-      "adfsConfigurationModulesURL": "[concat(variables('assetLocation'),'/ConfigureADFS.ps1.zip')]",
-      "adfsConfigurationFunction": "ConfigureADFS.ps1\\ConfigureADFS"
+      "provisioningDFSRVMUrl": "[concat(parameters('baseUrl'),'/nested/provisioningDFSRVM.json')]",
+      "configuringDFSRVMUrl": "[concat(parameters('baseUrl'),'/nested/configuringDFSRVM.json')]",
+      "dfsrConfigurationModulesURL": "[concat(variables('assetLocation'),'/ConfigureDFSR.ps1.zip')]",
+      "dfsrConfigurationFunction": "ConfigureDFSR.ps1\\ConfigureDFSR"
     },
     "assetLocation": "[concat(parameters('baseUrl'),'/scripts')]"
   },
@@ -314,11 +314,11 @@
           "adRDPNATRuleID": {
             "value": "[variables('derivedIds').adRDPNATRuleID]"
           },
-          "adfsVMName": {
-            "value": "[variables('vmSettings').adfsVMName]"
+          "dfsrVMName": {
+            "value": "[variables('vmSettings').dfsrVMName]"
           },
-          "adfsSubnetRef": {
-            "value": "[variables('adfsSubnetRef')]"
+          "dfsrSubnetRef": {
+            "value": "[variables('dfsrSubnetRef')]"
           },
           "fsVMName": {
             "value": "[variables('vmSettings').fsVMName]"
@@ -532,7 +532,7 @@
       }
     },
     {
-      "name": "ProvisioningADFSVirtualMachine",
+      "name": "ProvisioningDFSRVirtualMachine",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
@@ -543,24 +543,24 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[variables('configuration').provisioningADFSVMUrl]",
+          "uri": "[variables('configuration').provisioningDFSRVMUrl]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
           "VMName": {
-            "value": "[variables('vmSettings').adfsVMName]"
+            "value": "[variables('vmSettings').dfsrVMName]"
           },
           "location": {
             "value": "[parameters('location')]"
           },
           "storageAccountName": {
-            "value": "[variables('storageAccountNames').adfs]"
+            "value": "[variables('storageAccountNames').dfsr]"
           },
           "diagAccountName": {
             "value": "[variables('storageAccountNames').diag]"
           },
           "VMSize": {
-            "value": "[variables('adfsVMSize')]"
+            "value": "[variables('dfsrVMSize')]"
           },
           "adminUsername": {
             "value": "[parameters('adminUsername')]"
@@ -584,22 +584,22 @@
       }
     },
     {
-      "name": "ConfiguringADFSVirtualMachine",
+      "name": "ConfiguringDFSRVirtualMachine",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
         "Microsoft.Resources/deployments/UpdatingDNSwithPrimaryADVM",
-        "Microsoft.Resources/deployments/ProvisioningADFSVirtualMachine"
+        "Microsoft.Resources/deployments/ProvisioningDFSRVirtualMachine"
       ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[variables('configuration').configuringADFSVMUrl]",
+          "uri": "[variables('configuration').configuringDFSRVMUrl]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
           "VMName": {
-            "value": "[variables('vmSettings').adfsVMName]"
+            "value": "[variables('vmSettings').dfsrVMName]"
           },
           "location": {
             "value": "[parameters('location')]"
@@ -617,10 +617,10 @@
             "value": "[variables('fsSharePath')]"
           },
           "ConfigurationModulesURL": {
-            "value": "[variables('configuration').adfsConfigurationModulesURL]"
+            "value": "[variables('configuration').dfsrConfigurationModulesURL]"
           },
           "ConfigurationFunction": {
-            "value": "[variables('configuration').adfsConfigurationFunction]"
+            "value": "[variables('configuration').dfsrConfigurationFunction]"
           },
           "DNSServer": {
             "value": "[variables('adPDCNICIPAddress')]"

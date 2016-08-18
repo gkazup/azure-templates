@@ -33,13 +33,9 @@
   "resources": [
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('VMName'), copyindex(1),'/ConfigureFSServer')]",
+      "name": "[concat(parameters('VMName'), '/ConfigureFSServer')]",
       "apiVersion": "2015-06-15",
       "location": "[parameters('location')]",
-      "copy": {
-        "name": "fsConfigLoop",
-        "count": 2
-      },
       "properties": {
         "publisher": "Microsoft.Powershell",
         "type": "DSC",
@@ -51,7 +47,6 @@
           "configurationFunction": "[parameters('ConfigurationFunction')]",
           "properties": {
             "DNSServer": "[parameters('DNSServer')]",
-            "SharePath": "[concat(parameters('sharePath'),copyindex(1))]",
             "domainName": "[parameters('domainName')]",
             "adminCreds": {
               "userName": "[parameters('adminUserName')]",
