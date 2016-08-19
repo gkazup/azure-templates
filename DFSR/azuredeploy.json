@@ -359,7 +359,7 @@
             "value": "[parameters('location')]"
           },
           "storageAccountName": {
-            "value": "[variables('storageAccountNames').ad]"
+            "value": "[variables('storageAccountNames').dc]"
           },
           "diagAccountName": {
             "value": "[variables('storageAccountNames').diag]"
