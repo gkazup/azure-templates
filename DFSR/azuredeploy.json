@@ -118,7 +118,8 @@
 
     "vmSettings": {
       "availabilitySets": {
-        "fsAvailabilitySetName": "fsAvailabilitySet"
+        "fsAvailabilitySetName": "fsAvailabilitySet",
+        "adAvailabilitySetName": "adAvailabilitySet"
       },
       "noOffsRoleVMs": 2,
       "vmContainerName": "vhds",
@@ -146,7 +147,8 @@
     "ids": {
       "adNicId": "[resourceId('Microsoft.Network/networkInterfaces',variables('adPDCNicName'))]",
       "rdplbID": "[resourceId('Microsoft.Network/loadBalancers',variables('lbSettings').rdpLBName)]",
-      "fsAvailabilitySetName": "[resourceId('Microsoft.Compute/availabilitySets',variables('vmSettings').availabilitySets.fsAvailabilitySetName)]"
+      "fsAvailabilitySetName": "[resourceId('Microsoft.Compute/availabilitySets',variables('vmSettings').availabilitySets.fsAvailabilitySetName)]",
+      "adAvailabilitySetName": "[resourceId('Microsoft.Compute/availabilitySets',variables('vmSettings').availabilitySets.adAvailabilitySetName)]"
     },
     "derivedIds": {
       "adIPConfigID": "[concat(variables('ids').adNicId,'/ipConfigurations/ipconfig1')]",
@@ -252,6 +254,9 @@
           },
           "fsAvailabilitySetName": {
             "value": "[variables('vmSettings').availabilitySets.fsAvailabilitySetName]"
+          },
+          "adAvailabilitySetName": {
+            "value": "[variables('vmSettings').availabilitySets.adAvailabilitySetName]"
           }
         }
       }
