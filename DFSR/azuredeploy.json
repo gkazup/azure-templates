@@ -399,7 +399,7 @@
       }
     },
     {
-      "name": "UpdatingDNStoPrimaryADVM",
+      "name": "UpdatingDNSwithPrimaryADVM",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [

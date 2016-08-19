@@ -36,7 +36,7 @@
     },
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[parameters('storageAccountNames').adfs]",
+      "name": "[parameters('storageAccountNames').dfsr]",
       "apiVersion": "[variables('storageApiVersion')]",
       "location": "[parameters('location')]",
       "properties": {
