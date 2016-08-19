@@ -37,5 +37,5 @@ This template will create the following resources:
 |:---|:---------------------|
 |virtualNetworkName|Name of the Virtual Network|
 |adPDCVMName|The name of the Domain Controller|
-|ADFSVMName|The name of the ADFS Name server|
+|DFSRVMName|The name of the DFSR Name server|
 |fsVMName|The Prefix of the File Server VMs|
